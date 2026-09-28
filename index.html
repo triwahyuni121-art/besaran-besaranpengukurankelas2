@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petualangan Seru Belajar Pengukuran - Matematika Kelas 2 SD</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Nunito & Fredoka -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #fef3c7 100%);
+            min-height: 100vh;
+            user-select: none;
+        }
+        h1, h2, h3, .font-fun {
+            font-family: 'Fredoka', cursive;
+        }
+        .btn-bounce {
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+        }
+        .btn-bounce:active {
+            transform: scale(0.95);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+        .page-content {
+            display: none;
+        }
+        .page-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .drop-zone-active {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+    </style>
+</head>
+<body class="text-slate-800 flex flex-col justify-between min-h-screen">
+
+    <!-- Top Navigation Header (Shown after start) -->
+    <header id="app-header" class="hidden bg-white/90 backdrop-blur shadow-md sticky top-0 z-50 border-b-4 border-amber-400">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="showPage('page-menu')">
+                <span class="text-3xl">📏</span>
+                <div>
+                    <h1 class="text-lg md:text-xl font-bold text-amber-600 leading-tight">Belajar Pengukuran</h1>
+                    <p class="text-xs text-slate-500 font-semibold" id="header-user-info">Siswa: - | Kelas 2</p>
+                </div>
+            </div>
+            <button onclick="showPage('page-menu')" class="bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-white font-bold py-2 px-4 rounded-full text-sm shadow flex items-center gap-1 btn-bounce">
+                <i class="fa-solid fa-house"></i> <span class="hidden sm:inline">Menu Utama</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl mx-auto p-4 w-full flex-grow">
+
+        <!-- COVER / LANDING PAGE -->
+        <section id="page-cover" class="page-content active text-center py-6">
+            <div class="bg-white rounded-3xl p-6 md:p-10 card-shadow border-4 border-amber-300 max-w-2xl mx-auto relative overflow-hidden">
+                <div class="text-6xl md:text-7xl mb-4 animate-bounce">📐 ⚖️ ⏰</div>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-amber-600 mb-2 leading-tight">
+                    PETUALANGAN SERU BELAJAR PENGUKURAN
+                </h1>
+                <p class="text-xl md:text-2xl font-bold text-sky-600 mb-1">Matematika Kelas 2 SD</p>
+                <span class="inline-block bg-sky-100 text-sky-700 font-bold px-4 py-1 rounded-full text-sm mb-6 border border-sky-300">
+                    Elemen: Pengukuran (Kurikulum Merdeka)
+                </span>
+
+                <!-- Form Identitas -->
+                <div class="bg-amber-50 p-6 rounded-2xl border-2 border-amber-200 mb-6 text-left max-w-md mx-auto space-y-4">
+                    <h3 class="font-bold text-lg text-amber-800 text-center"><i class="fa-solid fa-user-pen mr-2"></i>Isi Identitas Dulu Ya!</h3>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-1">Nama Lengkap:</label>
+                        <input type="text" id="input-nama" placeholder="Tulis namamu di sini..." class="w-full p-3 rounded-xl border-2 border-amber-300 focus:outline-none focus:border-amber-500 font-bold text-slate-800">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-1">Kelas:</label>
+                        <select id="input-kelas" class="w-full p-3 rounded-xl border-2 border-amber-300 focus:outline-none focus:border-amber-500 font-bold text-slate-800 bg-white">
+                            <option value="2A">2 A</option>
+                            <option value="2B">2 B</option>
+                            <option value="2C">2 C</option>
+                            <option value="2D">2 D</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button onclick="startApp()" class="w-full max-w-md bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-white font-extrabold text-2xl py-4 px-8 rounded-2xl shadow-lg border-b-4 border-emerald-700 btn-bounce flex items-center justify-center gap-3 mx-auto">
+                    <span>▶ MULAI BELAJAR</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- MAIN MENU PAGE -->
+        <section id="page-menu" class="page-content">
+            <div class="text-center mb-6">
+                <h2 class="text-3xl font-extrabold text-slate-800">Pilih Petualanganmu! 🌟</h2>
+                <p class="text-slate-600">Pilih menu di bawah ini untuk mulai belajar dan bermain.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <!-- Button 1: Tujuan Pembelajaran -->
+                <button onclick="showPage('page-tujuan')" class="bg-sky-500 hover:bg-sky-600 text-white p-5 rounded-3xl card-shadow border-b-4 border-sky-700 btn-bounce flex flex-col items-center text-center">
+                    <span class="text-4xl mb-2">🎯</span>
+                    <span class="font-extrabold text-lg">Tujuan Pembelajaran</span>
+                </button>
+
+                <!-- Button 2: Ayo Belajar -->
+                <button onclick="showPage('page-belajar')" class="bg-emerald-500 hover:bg-emerald-600 text-white p-5 rounded-3xl card-shadow border-b-4 border-emerald-700 btn-bounce flex flex-col items-center text-center">
+                    <span class="text-4xl mb-2">📚</span>
+                    <span class="font-extrabold text-lg">Ayo Belajar</span>
+                </button>
+
+                <!-- Button 3: Materi Panjang -->
+                <button onclick="showPage('page-panjang')" class="bg-amber-500 hover:bg-amber-600 text-white p-5 rounded-3xl card-shadow border-b-4 border-amber-700 btn-bounce flex flex-col items-center text-center">
+                    <span class="text-4xl mb-2">📏</span>
+                    <span class="font-extrabold text-lg">Panjang</span>
+                </button>
+
+                <!-- Button 4: Materi Berat -->
+                <button onclick="showPage('page-berat')" class="bg-purple-500 hover:bg-purple-600 text-white p-5 rounded-3xl card-shadow border-b-4 border-purple-700 btn-bounce flex flex-col items-center text-center">
+                    <span class="text-4xl mb-2">⚖️</span>
+                    <span class="font-extrabold text-lg">Berat</span>
+                </button>
+
+                <!-- Button 5: Materi Waktu -->
+                <button onclick="showPage('page-waktu')" class="bg-rose-500 hover:bg-rose-600 text-white p-5 rounded-3xl card-shadow border-b-4 border-rose-700 btn-bounce flex flex-col items-center text-center">
+                    <span class="text-4xl mb-2">⏰</span>
+                    <span class="font-extrabold text-lg">Waktu</span>
+                </button>
+
+                <!-- Button 6: Ayo Bermain -->
+                <button onclick="showPage('page-bermain')" class="bg-indigo-500 hover:bg-indigo-600 text-white p-5 rounded-3xl card-shadow border-b-4 border-indigo-700 btn-bounce flex flex-col items-center text-center">
+                    <span class="text-4xl mb-2">🎮</span>
+                    <span class="font-extrabold text-lg">Ayo Bermain</span>
+                </button>
+
+                <!-- Button 7: Latihan Soal -->
+                <button onclick="showPage('page-latihan')" class="bg-teal-500 hover:bg-teal-600 text-white p-5 rounded-3xl card-shadow border-b-4 border-teal-700 btn-bounce flex flex-col items-center text-center">
+                    <span class="text-4xl mb-2">📝</span>
+                    <span class="font-extrabold text-lg">Latihan Soal</span>
+                </button>
+
+                <!-- Button 8: Tantangan -->
+                <button onclick="showPage('page-tantangan')" class="bg-orange-500 hover:bg-orange-600 text-white p-5 rounded-3xl card-shadow border-b-4 border-orange-700 btn-bounce flex flex-col items-center text-center">
+                    <span class="text-4xl mb-2">🏆</span>
+                    <span class="font-extrabold text-lg">Tantangan</span>
+                </button>
+
+                <!-- Button 9: Hasil Belajar -->
+                <button onclick="showPage('page-hasil')" class="bg-pink-500 hover:bg-pink-600 text-white p-5 rounded-3xl card-shadow border-b-4 border-pink-700 btn-bounce flex flex-col items-center text-center">
+                    <span class="text-4xl mb-2">📊</span>
+                    <span class="font-extrabold text-lg">Hasil Belajar</span>
+                </button>
+            </div>
+
+            <!-- Tombol Buka Materi Google Docs -->
+            <div class="mt-8 text-center">
+                <button onclick="openGoogleDocs()" class="bg-white text-blue-600 border-2 border-blue-400 hover:bg-blue-50 font-bold py-3 px-6 rounded-2xl shadow-md btn-bounce inline-flex items-center gap-2">
+                    <i class="fa-solid fa-file-lines text-xl"></i> BUKA MATERI DI GOOGLE DOCS
+                </button>
+            </div>
+        </section>
+
+        <!-- TUJUAN PEMBELAJARAN PAGE -->
+        <section id="page-tujuan" class="page-content">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border-4 border-sky-300">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="text-4xl">🎯</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-sky-600">Tujuan Pembelajaran Kita</h2>
+                </div>
+                <div class="space-y-4 text-slate-700 font-semibold text-lg">
+                    <div class="flex items-start gap-3 p-3 bg-sky-50 rounded-2xl">
+                        <span class="text-emerald-500 text-2xl">✓</span>
+                        <p>Memahami apa itu pengukuran dan mengapa pengukuran itu penting.</p>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-sky-50 rounded-2xl">
+                        <span class="text-emerald-500 text-2xl">✓</span>
+                        <p>Mengenal besaran <strong>Panjang</strong>, <strong>Berat</strong>, dan <strong>Waktu</strong>.</p>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-sky-50 rounded-2xl">
+                        <span class="text-emerald-500 text-2xl">✓</span>
+                        <p>Dapat memilih alat ukur yang tepat (Penggaris, Timbangan, Jam).</p>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-sky-50 rounded-2xl">
+                        <span class="text-emerald-500 text-2xl">✓</span>
+                        <p>Membandingkan panjang dan berat dua benda sehari-hari.</p>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-sky-50 rounded-2xl">
+                        <span class="text-emerald-500 text-2xl">✓</span>
+                        <p>Membaca waktu sederhana pada jam dinding/analog.</p>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-sky-50 rounded-2xl">
+                        <span class="text-emerald-500 text-2xl">✓</span>
+                        <p>Menyelesaikan masalah cerita tentang pengukuran sehari-hari.</p>
+                    </div>
+                </div>
+                <div class="mt-6 text-center">
+                    <button onclick="showPage('page-belajar')" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-8 rounded-2xl shadow-md btn-bounce">
+                        Lanjut Belajar Materi ➔
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- AYO BELAJAR OVERVIEW PAGE -->
+        <section id="page-belajar" class="page-content">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border-4 border-emerald-300">
+                <h2 class="text-3xl font-extrabold text-emerald-600 mb-4 text-center">💡 Apa itu Pengukuran?</h2>
+                <div class="p-4 bg-emerald-50 rounded-2xl text-lg text-slate-700 leading-relaxed mb-6">
+                    <p class="mb-2"><strong>Pengukuran</strong> adalah cara kita untuk mengetahui ukuran suatu benda secara pasti.</p>
+                    <p>Dalam kehidupan sehari-hari, kita sering mengukur <strong>Panjang</strong>, <strong>Berat</strong>, dan <strong>Waktu</strong>!</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div onclick="showPage('page-panjang')" class="cursor-pointer bg-amber-100 hover:bg-amber-200 p-5 rounded-2xl border-2 border-amber-400 text-center btn-bounce">
+                        <span class="text-5xl block mb-2">📏</span>
+                        <h3 class="font-bold text-xl text-amber-800">1. Panjang</h3>
+                        <p class="text-sm text-slate-600 mt-1">Mengukur seberapa panjang atau pendek benda.</p>
+                    </div>
+                    <div onclick="showPage('page-berat')" class="cursor-pointer bg-purple-100 hover:bg-purple-200 p-5 rounded-2xl border-2 border-purple-400 text-center btn-bounce">
+                        <span class="text-5xl block mb-2">⚖️</span>
+                        <h3 class="font-bold text-xl text-purple-800">2. Berat</h3>
+                        <p class="text-sm text-slate-600 mt-1">Mengukur seberapa berat atau ringan benda.</p>
+                    </div>
+                    <div onclick="showPage('page-waktu')" class="cursor-pointer bg-rose-100 hover:bg-rose-200 p-5 rounded-2xl border-2 border-rose-400 text-center btn-bounce">
+                        <span class="text-5xl block mb-2">⏰</span>
+                        <h3 class="font-bold text-xl text-rose-800">3. Waktu</h3>
+                        <p class="text-sm text-slate-600 mt-1">Mengetahui jam dan lamanya suatu kegiatan.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MATERI PANJANG PAGE -->
+        <section id="page-panjang" class="page-content">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border-4 border-amber-300">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-4xl">📏</span>
+                    <h2 class="text-3xl font-extrabold text-amber-600">Mengenal Panjang</h2>
+                </div>
+                
+                <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200 mb-6 text-slate-700 text-lg">
+                    <p><strong>Panjang</strong> menunjukkan seberapa panjang atau pendek suatu benda.</p>
+                    <p class="mt-2">Alat ukur panjang yang sering kita gunakan: <strong>Penggaris</strong> atau <strong>Meteran</strong>.</p>
+                </div>
+
+                <!-- Aktivitas Membandingkan Panjang -->
+                <div class="border-2 border-amber-300 rounded-2xl p-5 bg-white">
+                    <h3 class="font-bold text-xl text-slate-800 mb-4 text-center">Aktivitas 1: Mana yang Lebih Panjang? 🤔</h3>
+                    <p class="text-center text-slate-600 mb-4">Klik pada benda yang lebih panjang!</p>
+                    
+                    <div class="grid grid-cols-2 gap-4 max-w-lg mx-auto">
+                        <button onclick="checkPanjang(true)" class="p-4 bg-sky-100 border-2 border-sky-300 hover:bg-sky-200 rounded-2xl flex flex-col items-center btn-bounce">
+                            <span class="text-4xl mb-2">✏️</span>
+                            <span class="font-bold text-slate-800">Pensil Baru</span>
+                            <span class="text-xs text-slate-500">(Ukuran Panjang)</span>
+                        </button>
+                        <button onclick="checkPanjang(false)" class="p-4 bg-sky-100 border-2 border-sky-300 hover:bg-sky-200 rounded-2xl flex flex-col items-center btn-bounce">
+                            <span class="text-3xl mb-2">🧼</span>
+                            <span class="font-bold text-slate-800">Penghapus</span>
+                            <span class="text-xs text-slate-500">(Ukuran Pendek)</span>
+                        </button>
+                    </div>
+                    <div id="feedback-panjang" class="mt-4 text-center font-bold text-xl min-h-[32px]"></div>
+                </div>
+
+                <div class="mt-6 flex justify-between">
+                    <button onclick="showPage('page-belajar')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 px-6 rounded-xl">🔙 Kembali</button>
+                    <button onclick="showPage('page-berat')" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-6 rounded-xl">Lanjut Ke Berat ➔</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- MATERI BERAT PAGE -->
+        <section id="page-berat" class="page-content">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border-4 border-purple-300">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-4xl">⚖️</span>
+                    <h2 class="text-3xl font-extrabold text-purple-600">Mengenal Berat</h2>
+                </div>
+                
+                <div class="bg-purple-50 p-4 rounded-2xl border border-purple-200 mb-6 text-slate-700 text-lg">
+                    <p><strong>Berat</strong> menunjukkan seberapa berat atau ringan suatu benda.</p>
+                    <p class="mt-2">Alat ukur yang digunakan adalah <strong>Timbangan</strong>.</p>
+                </div>
+
+                <!-- Aktivitas Membandingkan Berat -->
+                <div class="border-2 border-purple-300 rounded-2xl p-5 bg-white">
+                    <h3 class="font-bold text-xl text-slate-800 mb-4 text-center">Aktivitas 2: Mana yang Lebih Berat? 🤔</h3>
+                    <p class="text-center text-slate-600 mb-4">Klik pada benda yang lebih berat!</p>
+                    
+                    <div class="grid grid-cols-2 gap-4 max-w-lg mx-auto">
+                        <button onclick="checkBerat(false)" class="p-4 bg-purple-100 border-2 border-purple-300 hover:bg-purple-200 rounded-2xl flex flex-col items-center btn-bounce">
+                            <span class="text-4xl mb-2">☁️</span>
+                            <span class="font-bold text-slate-800">Kapas</span>
+                            <span class="text-xs text-slate-500">(Sangat Ringan)</span>
+                        </button>
+                        <button onclick="checkBerat(true)" class="p-4 bg-purple-100 border-2 border-purple-300 hover:bg-purple-200 rounded-2xl flex flex-col items-center btn-bounce">
+                            <span class="text-4xl mb-2">🎒</span>
+                            <span class="font-bold text-slate-800">Tas Sekolah</span>
+                            <span class="text-xs text-slate-500">(Lebih Berat)</span>
+                        </button>
+                    </div>
+                    <div id="feedback-berat" class="mt-4 text-center font-bold text-xl min-h-[32px]"></div>
+                </div>
+
+                <div class="mt-6 flex justify-between">
+                    <button onclick="showPage('page-panjang')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 px-6 rounded-xl">🔙 Panjang</button>
+                    <button onclick="showPage('page-waktu')" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-6 rounded-xl">Lanjut Ke Waktu ➔</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- MATERI WAKTU PAGE -->
+        <section id="page-waktu" class="page-content">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border-4 border-rose-300">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-4xl">⏰</span>
+                    <h2 class="text-3xl font-extrabold text-rose-600">Mengenal Waktu</h2>
+                </div>
+                
+                <div class="bg-rose-50 p-4 rounded-2xl border border-rose-200 mb-6 text-slate-700 text-lg">
+                    <p><strong>Waktu</strong> membantu kita mengetahui kapan suatu kegiatan dilakukan (pagi, siang, sore, malam).</p>
+                    <p class="mt-2">Kita menggunakan <strong>Jam</strong> untuk mengukur dan membaca waktu.</p>
+                </div>
+
+                <!-- Aktivitas Membaca Jam -->
+                <div class="border-2 border-rose-300 rounded-2xl p-5 bg-white text-center">
+                    <h3 class="font-bold text-xl text-slate-800 mb-2">Aktivitas 3: Membaca Jam 🕰️</h3>
+                    <p class="text-slate-600 mb-4">"Jam berapa Rani berangkat ke sekolah di pagi hari?"</p>
+                    
+                    <div class="w-32 h-32 rounded-full border-4 border-rose-500 bg-rose-50 mx-auto flex items-center justify-center font-extrabold text-2xl text-rose-700 mb-4 shadow-inner">
+                        06:00 🕖
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <button onclick="checkWaktu(true)" class="px-6 py-3 bg-rose-100 border-2 border-rose-300 rounded-xl font-bold hover:bg-rose-200 btn-bounce">Jam 06.00 Pagi</button>
+                        <button onclick="checkWaktu(false)" class="px-6 py-3 bg-rose-100 border-2 border-rose-300 rounded-xl font-bold hover:bg-rose-200 btn-bounce">Jam 12.00 Siang</button>
+                        <button onclick="checkWaktu(false)" class="px-6 py-3 bg-rose-100 border-2 border-rose-300 rounded-xl font-bold hover:bg-rose-200 btn-bounce">Jam 09.00 Malam</button>
+                    </div>
+                    <div id="feedback-waktu" class="mt-4 font-bold text-xl min-h-[32px]"></div>
+                </div>
+
+                <div class="mt-6 flex justify-between">
+                    <button onclick="showPage('page-berat')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 px-6 rounded-xl">🔙 Berat</button>
+                    <button onclick="showPage('page-bermain')" class="bg-rose-500 hover:bg-rose-600 text-white font-bold py-2 px-6 rounded-xl">Ayo Bermain Game ➔</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- AYO BERMAIN PAGE (3 GAMES) -->
+        <section id="page-bermain" class="page-content">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border-4 border-indigo-300">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="text-4xl">🎮</span>
+                    <h2 class="text-3xl font-extrabold text-indigo-600">Arena Bermain Matematika</h2>
+                </div>
+
+                <!-- Tabs Game -->
+                <div class="flex border-b-2 border-indigo-200 mb-6 gap-2">
+                    <button id="tab-game1" onclick="switchGame(1)" class="py-2 px-4 font-bold rounded-t-xl bg-indigo-500 text-white">Game 1: Tebak Ukuran</button>
+                    <button id="tab-game2" onclick="switchGame(2)" class="py-2 px-4 font-bold rounded-t-xl bg-slate-200 text-slate-600">Game 2: Pasangkan Alat</button>
+                    <button id="tab-game3" onclick="switchGame(3)" class="py-2 px-4 font-bold rounded-t-xl bg-slate-200 text-slate-600">Game 3: Benar / Salah</button>
+                </div>
+
+                <!-- GAME 1: Tebak Ukuran -->
+                <div id="game-1" class="game-container">
+                    <h3 class="font-bold text-xl text-indigo-800 mb-2">🎯 Game 1: Tebak Alat Ukur yang Pas</h3>
+                    <p class="text-slate-600 mb-4">Pilih alat ukur yang sesuai untuk mengukur benda berikut!</p>
+                    
+                    <div id="g1-card" class="bg-indigo-50 p-6 rounded-2xl border-2 border-indigo-200 text-center max-w-md mx-auto">
+                        <span id="g1-emoji" class="text-6xl block mb-2">📖</span>
+                        <h4 id="g1-title" class="text-2xl font-bold mb-4 text-slate-800">Panjang Buku Tulis</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3" id="g1-options">
+                            <!-- Options rendered dynamically -->
+                        </div>
+                    </div>
+                    <div id="g1-feedback" class="mt-4 text-center font-bold text-xl min-h-[32px]"></div>
+                </div>
+
+                <!-- GAME 2: Pasangkan Alat -->
+                <div id="game-2" class="game-container hidden">
+                    <h3 class="font-bold text-xl text-indigo-800 mb-2">🧩 Game 2: Pasangkan Benda & Alat Ukurnya</h3>
+                    <p class="text-slate-600 mb-4">Klik Benda lalu Klik Alat Ukur yang Pas!</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Items -->
+                        <div class="space-y-3">
+                            <h4 class="font-bold text-center text-slate-700">Nama Benda</h4>
+                            <div id="g2-item-1" onclick="selectG2Item(1)" class="p-3 border-2 border-dashed border-indigo-400 bg-white rounded-xl font-bold text-center cursor-pointer hover:bg-indigo-50">🍎 Buah Apel</div>
+                            <div id="g2-item-2" onclick="selectG2Item(2)" class="p-3 border-2 border-dashed border-indigo-400 bg-white rounded-xl font-bold text-center cursor-pointer hover:bg-indigo-50">📏 Meja Belajar</div>
+                            <div id="g2-item-3" onclick="selectG2Item(3)" class="p-3 border-2 border-dashed border-indigo-400 bg-white rounded-xl font-bold text-center cursor-pointer hover:bg-indigo-50">⏰ Durasi Tidur Siang</div>
+                        </div>
+                        <!-- Tools -->
+                        <div class="space-y-3">
+                            <h4 class="font-bold text-center text-slate-700">Alat Ukur</h4>
+                            <div id="g2-tool-A" onclick="selectG2Tool('A')" class="p-3 border-2 border-indigo-300 bg-indigo-100 rounded-xl font-bold text-center cursor-pointer hover:bg-indigo-200">⚖️ Timbangan Buah</div>
+                            <div id="g2-tool-B" onclick="selectG2Tool('B')" class="p-3 border-2 border-indigo-300 bg-indigo-100 rounded-xl font-bold text-center cursor-pointer hover:bg-indigo-200">📏 Meteran / Penggaris</div>
+                            <div id="g2-tool-C" onclick="selectG2Tool('C')" class="p-3 border-2 border-indigo-300 bg-indigo-100 rounded-xl font-bold text-center cursor-pointer hover:bg-indigo-200">⏱️ Jam / Stop watch</div>
+                        </div>
+                    </div>
+                    <div id="g2-feedback" class="mt-4 text-center font-bold text-xl min-h-[32px]"></div>
+                </div>
+
+                <!-- GAME 3: Benar atau Salah -->
+                <div id="game-3" class="game-container hidden">
+                    <h3 class="font-bold text-xl text-indigo-800 mb-2">⚡ Game 3: Benar atau Salah?</h3>
+                    <p class="text-slate-600 mb-4">Baca pernyataan lalu pilih BENAR atau SALAH!</p>
+
+                    <div class="bg-indigo-50 p-6 rounded-2xl border-2 border-indigo-200 text-center max-w-md mx-auto">
+                        <div id="g3-statement" class="text-xl font-bold text-slate-800 mb-6">"Penggaris digunakan untuk mengukur berat badan kita."</div>
+                        <div class="flex justify-center gap-4">
+                            <button onclick="checkG3(true)" class="bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xl py-3 px-8 rounded-2xl btn-bounce">BENAR 👍</button>
+                            <button onclick="checkG3(false)" class="bg-rose-500 hover:bg-rose-600 text-white font-extrabold text-xl py-3 px-8 rounded-2xl btn-bounce">SALAH 👎</button>
+                        </div>
+                    </div>
+                    <div id="g3-feedback" class="mt-4 text-center font-bold text-xl min-h-[32px]"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LATIHAN SOAL PAGE (15 QUESTIONS) -->
+        <section id="page-latihan" class="page-content">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border-4 border-teal-300">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-teal-600">📝 Latihan Soal Pengukuran</h2>
+                    <span id="quiz-progress" class="bg-teal-100 text-teal-800 font-bold px-3 py-1 rounded-full text-sm">Soal 1 / 15</span>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden mb-6">
+                    <div id="quiz-bar" class="bg-teal-500 h-full w-[6.6%] transition-all duration-300"></div>
+                </div>
+
+                <!-- Soal Container -->
+                <div id="quiz-container" class="bg-teal-50/50 p-5 rounded-2xl border border-teal-200 mb-6">
+                    <h3 id="quiz-question" class="text-xl font-bold text-slate-800 mb-4">Pertanyaan akan muncul di sini...</h3>
+                    <div id="quiz-options" class="space-y-3">
+                        <!-- Dynamic Options A, B, C -->
+                    </div>
+                </div>
+
+                <!-- Feedback Area -->
+                <div id="quiz-feedback" class="p-4 rounded-2xl mb-4 hidden font-bold text-lg"></div>
+
+                <div class="flex justify-end">
+                    <button id="btn-next-quiz" onclick="nextQuestion()" class="hidden bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-8 rounded-2xl shadow-md btn-bounce">
+                        Soal Berikutnya ➔
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TANTANGAN SOAL CERITA PAGE -->
+        <section id="page-tantangan" class="page-content">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border-4 border-orange-300">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-4xl">🏆</span>
+                    <h2 class="text-3xl font-extrabold text-orange-600">Tantangan Soal Cerita</h2>
+                </div>
+                <p class="text-slate-600 mb-6">Selesaikan masalah sehari-hari tentang pengukuran berikut ini!</p>
+
+                <div id="challenge-card" class="bg-orange-50 p-6 rounded-2xl border-2 border-orange-200">
+                    <p id="challenge-text" class="text-xl font-bold text-slate-800 mb-6">
+                        "Ibu memiliki pita sepanjang 50 cm. Siti memiliki pita sepanjang 30 cm. Pita siapa yang lebih panjang?"
+                    </p>
+                    <div id="challenge-options" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <!-- Options generated dynamically -->
+                    </div>
+                </div>
+                <div id="challenge-feedback" class="mt-4 text-center font-bold text-xl min-h-[32px]"></div>
+            </div>
+        </section>
+
+        <!-- REFLEKSI SAYA PAGE -->
+        <section id="page-refleksi" class="page-content">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border-4 border-pink-300">
+                <div class="text-center mb-6">
+                    <span class="text-5xl block mb-2">🪞</span>
+                    <h2 class="text-3xl font-extrabold text-pink-600">Refleksi Belajarku</h2>
+                    <p class="text-slate-600">Bagaimana perasaanmu setelah belajar pengukuran hari ini?</p>
+                </div>
+
+                <div class="space-y-6 max-w-xl mx-auto">
+                    <!-- Q1 -->
+                    <div class="bg-pink-50 p-4 rounded-2xl border border-pink-200">
+                        <p class="font-bold text-slate-800 mb-3">1. Apakah kamu sudah paham besaran panjang, berat, dan waktu?</p>
+                        <div class="flex justify-around">
+                            <button onclick="setRefleksi(1, 'Sangat Paham 😊')" class="refl-btn1 text-2xl p-2 rounded-xl border border-slate-300 bg-white">😊 Sangat Paham</button>
+                            <button onclick="setRefleksi(1, 'Paham 🙂')" class="refl-btn1 text-2xl p-2 rounded-xl border border-slate-300 bg-white">🙂 Paham</button>
+                            <button onclick="setRefleksi(1, 'Perlu Belajar 😐')" class="refl-btn1 text-2xl p-2 rounded-xl border border-slate-300 bg-white">😐 Perlu Belajar</button>
+                        </div>
+                    </div>
+                    <!-- Q2 -->
+                    <div class="bg-pink-50 p-4 rounded-2xl border border-pink-200">
+                        <p class="font-bold text-slate-800 mb-3">2. Bisakah kamu memilih alat ukur yang tepat?</p>
+                        <div class="flex justify-around">
+                            <button onclick="setRefleksi(2, 'Sangat Paham 😊')" class="refl-btn2 text-2xl p-2 rounded-xl border border-slate-300 bg-white">😊 Sangat Paham</button>
+                            <button onclick="setRefleksi(2, 'Paham 🙂')" class="refl-btn2 text-2xl p-2 rounded-xl border border-slate-300 bg-white">🙂 Paham</button>
+                            <button onclick="setRefleksi(2, 'Perlu Belajar 😐')" class="refl-btn2 text-2xl p-2 rounded-xl border border-slate-300 bg-white">😐 Perlu Belajar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 text-center">
+                    <button onclick="finishRefleksi()" class="bg-pink-500 hover:bg-pink-600 text-white font-extrabold text-xl py-3 px-8 rounded-2xl shadow-lg btn-bounce">
+                        Lihat Hasil Belajar 📊
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- HASIL BELAJAR PAGE -->
+        <section id="page-hasil" class="page-content">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border-4 border-yellow-300 text-center">
+                <div class="text-6xl mb-2">🎉</div>
+                <h2 class="text-3xl font-extrabold text-amber-600 mb-1">Hasil Belajar Matematika</h2>
+                <p class="text-slate-500 font-bold mb-6">Hebat! Kamu telah menyelesaikan petualangan ini!</p>
+
+                <!-- Student Info Card -->
+                <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200 max-w-md mx-auto mb-6 text-left space-y-1">
+                    <p class="text-slate-700"><strong>Nama Siswa:</strong> <span id="res-nama" class="font-bold text-amber-800">-</span></p>
+                    <p class="text-slate-700"><strong>Kelas:</strong> <span id="res-kelas" class="font-bold text-amber-800">-</span></p>
+                    <p class="text-slate-700"><strong>Waktu Pengerjaan:</strong> <span id="res-waktu" class="font-bold text-amber-800">0 Menit</span></p>
+                </div>
+
+                <!-- Score Board -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-lg mx-auto mb-6">
+                    <div class="bg-emerald-100 border-2 border-emerald-300 p-3 rounded-2xl">
+                        <span class="block text-slate-600 text-xs font-bold">BENAR</span>
+                        <span id="res-benar" class="text-2xl font-extrabold text-emerald-700">0</span>
+                    </div>
+                    <div class="bg-rose-100 border-2 border-rose-300 p-3 rounded-2xl">
+                        <span class="block text-slate-600 text-xs font-bold">SALAH</span>
+                        <span id="res-salah" class="text-2xl font-extrabold text-rose-700">0</span>
+                    </div>
+                    <div class="bg-sky-100 border-2 border-sky-300 p-3 rounded-2xl">
+                        <span class="block text-slate-600 text-xs font-bold">NILAI</span>
+                        <span id="res-nilai" class="text-2xl font-extrabold text-sky-700">0</span>
+                    </div>
+                    <div class="bg-amber-100 border-2 border-amber-300 p-3 rounded-2xl">
+                        <span class="block text-slate-600 text-xs font-bold">PREDIKAT</span>
+                        <span id="res-predikat" class="text-lg font-extrabold text-amber-700">-</span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap justify-center gap-3 max-w-md mx-auto">
+                    <button onclick="saveResultToGoogleSheet()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-6 rounded-2xl shadow-md btn-bounce flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> SIMPAN HASIL KE GURU
+                    </button>
+                    <button onclick="resetApp()" class="flex-1 bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-4 rounded-2xl shadow-md btn-bounce">
+                        🔄 ULANGI LATIHAN
+                    </button>
+                    <button onclick="showPage('page-belajar')" class="flex-1 bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 px-4 rounded-2xl shadow-md btn-bounce">
+                        📚 BELAJAR LAGI
+                    </button>
+                </div>
+                
+                <div id="save-status" class="mt-4 font-bold text-sm min-h-[24px]"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white/80 border-t border-slate-200 py-3 text-center text-xs text-slate-500 mt-6">
+        <p>Media Pembelajaran Interaktif Matematika Kelas 2 SD • Kurikulum Merdeka</p>
+    </footer>
+
+    <script>
+        // ==========================================
+        // KONFIGURASI GURU (SILAKAN EDIT DI SINI)
+        // ==========================================
+        const GOOGLE_SCRIPT_URL = "MASUKKAN_URL_GOOGLE_APPS_SCRIPT_DI_SINI";
+        const GOOGLE_DOCS_URL = "https://docs.google.com"; // Ganti dengan URL Google Docs materi guru
+
+        // STATE APLIKASI
+        let namaPeserta = "";
+        let kelasPeserta = "2A";
+        let startTime = null;
+        let currentQuizIndex = 0;
+        let userAnswers = [];
+        let scoreBenar = 0;
+        let scoreSalah = 0;
+        let refleksiHasil = "Sangat Paham 😊";
+
+        // AUDIO SYNTH (Sound Effects Sederhana Tanpa File Luar)
+        const playSound = (type) => {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'correct') {
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+                    osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1); // E5
+                    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.25);
+                } else if (type === 'wrong') {
+                    osc.frequency.setValueAtTime(220, ctx.currentTime); // A3
+                    osc.frequency.setValueAtTime(196, ctx.currentTime + 0.1); // G3
+                    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.25);
+                }
+            } catch (e) {
+                // Audio context blocked / unsupported
+            }
+        };
+
+        // NAVIGASI HALAMAN
+        function showPage(pageId) {
+            document.querySelectorAll('.page-content').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (pageId !== 'page-cover') {
+                document.getElementById('app-header').classList.remove('hidden');
+            }
+        }
+
+        // MULAI APLIKASI
+        function startApp() {
+            const nameInput = document.getElementById('input-nama').value.trim();
+            if (!nameInput) {
+                alert("Halo! Tuliskan namamu terlebih dahulu ya 😊");
+                return;
+            }
+            namaPeserta = nameInput;
+            kelasPeserta = document.getElementById('input-kelas').value;
+            startTime = new Date();
+
+            document.getElementById('header-user-info').innerText = `Siswa: ${namaPeserta} | Kelas ${kelasPeserta}`;
+            showPage('page-menu');
+        }
+
+        // AKTIVITAS MATERI PANJANG
+        function checkPanjang(isCorrect) {
+            const fb = document.getElementById('feedback-panjang');
+            if (isCorrect) {
+                fb.innerHTML = "<span class='text-emerald-600'>✓ Hebat! Jawabanmu Benar. Pensil lebih panjang! 🎉</span>";
+                playSound('correct');
+            } else {
+                fb.innerHTML = "<span class='text-rose-600'>✗ Belum tepat. Coba perhatikan kembali gambarnya! 😊</span>";
+                playSound('wrong');
+            }
+        }
+
+        // AKTIVITAS MATERI BERAT
+        function checkBerat(isCorrect) {
+            const fb = document.getElementById('feedback-berat');
+            if (isCorrect) {
+                fb.innerHTML = "<span class='text-emerald-600'>✓ Pintar! Tas sekolah lebih berat dari kapas! 🎒</span>";
+                playSound('correct');
+            } else {
+                fb.innerHTML = "<span class='text-rose-600'>✗ Kapas itu sangat ringan. Coba lagi ya! 😉</span>";
+                playSound('wrong');
+            }
+        }
+
+        // AKTIVITAS MATERI WAKTU
+        function checkWaktu(isCorrect) {
+            const fb = document.getElementById('feedback-waktu');
+            if (isCorrect) {
+                fb.innerHTML = "<span class='text-emerald-600'>✓ Bagus Sekali! Rani berangkat sekolah jam 06.00 pagi. ⏰</span>";
+                playSound('correct');
+            } else {
+                fb.innerHTML = "<span class='text-rose-600'>✗ Perhatikan jarum jamnya kembali ya! 💭</span>";
+                playSound('wrong');
+            }
+        }
+
+        // GAME 1: TEBAK UKURAN
+        let g1Current = 0;
+        const g1Data = [
+            { title: "Panjang Meja Belajar", emoji: "🪑", options: ["Penggaris / Meteran", "Timbangan", "Jam Dinding"], correct: 0 },
+            { title: "Berat Buah Semangka", emoji: "🍉", options: ["Penggaris", "Timbangan Buah", "Stopwatch"], correct: 1 },
+            { title: "Lama Waktu Olahraga", emoji: "⚽", options: ["Meteran", "Timbangan", "Jam / Stopwatch"], correct: 2 }
+        ];
+
+        function renderG1() {
+            const item = g1Data[g1Current];
+            document.getElementById('g1-title').innerText = item.title;
+            document.getElementById('g1-emoji').innerText = item.emoji;
+            const container = document.getElementById('g1-options');
+            container.innerHTML = '';
+            item.options.forEach((opt, idx) => {
+                container.innerHTML += `<button onclick="answerG1(${idx})" class="p-3 bg-indigo-100 hover:bg-indigo-200 text-indigo-900 font-bold rounded-xl btn-bounce">${opt}</button>`;
+            });
+        }
+
+        function answerG1(idx) {
+            const fb = document.getElementById('g1-feedback');
+            if (idx === g1Data[g1Current].correct) {
+                fb.innerHTML = "<span class='text-emerald-600'>✓ Luar Biasa! Jawabanmu Benar! 🌟</span>";
+                playSound('correct');
+                setTimeout(() => {
+                    g1Current = (g1Current + 1) % g1Data.length;
+                    fb.innerText = "";
+                    renderG1();
+                }, 1200);
+            } else {
+                fb.innerHTML = "<span class='text-rose-600'>✗ Hampir Benar, ayo coba alat ukur yang lain! 💪</span>";
+                playSound('wrong');
+            }
+        }
+
+        // GAME 2: PASANGKAN
+        let g2SelectedItem = null;
+        function selectG2Item(id) {
+            g2SelectedItem = id;
+            document.getElementById('g2-feedback').innerText = "Sekarang pilih Alat Ukur yang sesuai di sebelah kanan!";
+        }
+        function selectG2Tool(tool) {
+            const fb = document.getElementById('g2-feedback');
+            if (!g2SelectedItem) {
+                fb.innerText = "Pilih Benda di sebelah kiri dulu ya!";
+                return;
+            }
+            if ((g2SelectedItem === 1 && tool === 'A') || (g2SelectedItem === 2 && tool === 'B') || (g2SelectedItem === 3 && tool === 'C')) {
+                fb.innerHTML = "<span class='text-emerald-600'>✓ Pasangan Cocok! Kamu Hebat! 🧩</span>";
+                playSound('correct');
+            } else {
+                fb.innerHTML = "<span class='text-rose-600'>✗ Pasangan belum pas. Coba cocokkan lagi! 😊</span>";
+                playSound('wrong');
+            }
+            g2SelectedItem = null;
+        }
+
+        // GAME 3: BENAR ATAU SALAH
+        const g3Statements = [
+            { text: "Penggaris digunakan untuk mengukur berat badan kita.", answer: false },
+            { text: "Jam digunakan untuk mengetahui waktu belajar.", answer: true },
+            { text: "Gajah lebih ringan daripada seekor semut.", answer: false }
+        ];
+        let g3Index = 0;
+
+        function checkG3(userChoice) {
+            const fb = document.getElementById('g3-feedback');
+            if (userChoice === g3Statements[g3Index].answer) {
+                fb.innerHTML = "<span class='text-emerald-600'>✓ Hebat! Analisis Kamu Tepat! ⭐</span>";
+                playSound('correct');
+                setTimeout(() => {
+                    g3Index = (g3Index + 1) % g3Statements.length;
+                    document.getElementById('g3-statement').innerText = `"${g3Statements[g3Index].text}"`;
+                    fb.innerText = "";
+                }, 1200);
+            } else {
+                fb.innerHTML = "<span class='text-rose-600'>✗ Belum tepat. Baca kembali kalimatnya baik-baik ya! 😉</span>";
+                playSound('wrong');
+            }
+        }
+
+        function switchGame(num) {
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`game-${i}`).classList.add('hidden');
+                document.getElementById(`tab-game${i}`).className = "py-2 px-4 font-bold rounded-t-xl bg-slate-200 text-slate-600";
+            }
+            document.getElementById(`game-${num}`).classList.remove('hidden');
+            document.getElementById(`tab-game${num}`).className = "py-2 px-4 font-bold rounded-t-xl bg-indigo-500 text-white";
+            if (num === 1) renderG1();
+        }
+
+        // BANK SOAL LATIHAN (15 SOAL)
+        const quizData = [
+            { q: "1. Alat yang digunakan untuk mengukur panjang pensil adalah...", options: ["A. Jam", "B. Penggaris", "C. Timbangan"], answer: 1, exp: "Penggaris digunakan untuk mengukur benda yang pendek seperti pensil." },
+            { q: "2. Besaran yang menunjukkan seberapa berat atau ringan suatu benda adalah...", options: ["A. Panjang", "B. Waktu", "C. Berat"], answer: 2, exp: "Berat mengukur seberapa berat benda tersebut." },
+            { q: "3. Untuk mengukur lama waktu kita tidur, kita melihat...", options: ["A. Jam", "B. Meteran", "C. Timbangan"], answer: 0, exp: "Jam adalah alat ukur waktu." },
+            { q: "4. Manakah benda yang lebih panjang?", options: ["A. Penghapus", "B. Meja Guru", "C. Pensil"], answer: 1, exp: "Meja Guru ukurannya lebih panjang dari pensil dan penghapus." },
+            { q: "5. Manakah benda yang lebih ringan?", options: ["A. Lemari", "B. Tas Sekolah", "C. Kapas"], answer: 2, exp: "Kapas adalah benda yang sangat ringan." },
+            { q: "6. Dito bangun tidur jam 05.00 di... hari.", options: ["A. Pagi", "B. Siang", "C. Malam"], answer: 0, exp: "Jam 05.00 adalah waktu pagi hari." },
+            { q: "7. Alat untuk mengukur berat buah semangka adalah...", options: ["A. Timbangan", "B. Penggaris", "C. Meteran"], answer: 0, exp: "Timbangan digunakan untuk mengukur berat buah." },
+            { q: "8. Penghapus milik Budi panjangnya 3 cm. Pensil Budi 10 cm. Yang lebih pendek adalah...", options: ["A. Pensil", "B. Penghapus", "C. Sama panjang"], answer: 1, exp: "3 cm lebih kecil dari 10 cm, jadi penghapus lebih pendek." },
+            { q: "9. Jarum pendek jam menunjuk angka 7, jarum panjang menunjuk angka 12. Menunjukkan jam...", options: ["A. Jam 12.00", "B. Jam 07.00", "C. Jam 05.00"], answer: 1, exp: "Jarum pendek menentukan jam, yaitu jam 7 pas." },
+            { q: "10. Manakah yang termasuk besaran pengukuran?", options: ["A. Warna", "B. Panjang", "C. Bunga"], answer: 1, exp: "Panjang, Berat, dan Waktu adalah besaran pengukuran." },
+            { q: "11. Benda yang lebih berat dari buku tulis adalah...", options: ["A. Selembar Kertas", "B. Meja Kayu", "C. Pensil"], answer: 1, exp: "Meja kayu jauh lebih berat dari buku tulis." },
+            { q: "12. Kegiatan yang membutuhkan waktu lebih singkat adalah...", options: ["A. Berkedip", "B. Tidur Malam", "C. Belajar di Sekolah"], answer: 0, exp: "Berkedip hanya butuh waktu 1 detik." },
+            { q: "13. Penggaris menggunakan satuan panjang sederhana yaitu...", options: ["A. Kilogram", "B. Sentimeter (cm)", "C. Jam"], answer: 1, exp: "Sentimeter (cm) adalah satuan panjang pada penggaris." },
+            { q: "14. Ibu ingin mengukur panjang kain untuk baju. Ibu menggunakan...", options: ["A. Meteran kain", "B. Timbangan", "C. Jam tangan"], answer: 0, exp: "Meteran kain cocok untuk mengukur bahan panjang." },
+            { q: "15. Bola besi terasa... dibandingkan bola plastik.", options: ["A. Lebih ringan", "B. Lebih berat", "C. Sama berat"], answer: 1, exp: "Besi lebih padat sehingga terasa lebih berat." }
+        ];
+
+        function loadQuestion() {
+            const data = quizData[currentQuizIndex];
+            document.getElementById('quiz-progress').innerText = `Soal ${currentQuizIndex + 1} / ${quizData.length}`;
+            document.getElementById('quiz-bar').style.width = `${((currentQuizIndex + 1) / quizData.length) * 100}%`;
+            document.getElementById('quiz-question').innerText = data.q;
+
+            const optsDiv = document.getElementById('quiz-options');
+            optsDiv.innerHTML = '';
+            data.options.forEach((opt, idx) => {
+                optsDiv.innerHTML += `
+                    <button onclick="checkQuizAnswer(${idx})" class="w-full text-left p-4 rounded-xl border-2 border-teal-200 bg-white hover:bg-teal-100 font-bold text-slate-800 btn-bounce flex items-center justify-between">
+                        <span>${opt}</span>
+                        <i class="fa-regular fa-circle text-teal-400"></i>
+                    </button>
+                `;
+            });
+
+            document.getElementById('quiz-feedback').classList.add('hidden');
+            document.getElementById('btn-next-quiz').classList.add('hidden');
+        }
+
+        function checkQuizAnswer(selectedIdx) {
+            const data = quizData[currentQuizIndex];
+            const fb = document.getElementById('quiz-feedback');
+            fb.classList.remove('hidden');
+
+            if (selectedIdx === data.answer) {
+                scoreBenar++;
+                fb.className = "p-4 rounded-2xl mb-4 font-bold text-lg bg-emerald-100 text-emerald-800 border-2 border-emerald-300";
+                fb.innerHTML = `✓ <strong>Hebat! Jawabanmu Benar!</strong><br><span class="text-sm font-normal">${data.exp}</span>`;
+                playSound('correct');
+            } else {
+                scoreSalah++;
+                fb.className = "p-4 rounded-2xl mb-4 font-bold text-lg bg-rose-100 text-rose-800 border-2 border-rose-300";
+                fb.innerHTML = `✗ <strong>Coba lagi ya, kamu pasti bisa!</strong><br><span class="text-sm font-normal">${data.exp}</span>`;
+                playSound('wrong');
+            }
+
+            // Disable all option buttons
+            const buttons = document.querySelectorAll('#quiz-options button');
+            buttons.forEach(btn => btn.disabled = true);
+
+            document.getElementById('btn-next-quiz').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuizIndex++;
+            if (currentQuizIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                showPage('page-refleksi');
+            }
+        }
+
+        // SOAL TANTANGAN CERITA
+        const challengeData = [
+            { text: "Ibu memiliki pita sepanjang 50 cm. Siti memiliki pita sepanjang 30 cm. Pita siapakah yang lebih panjang?", options: ["Pita Ibu", "Pita Siti", "Sama Panjang"], correct: 0 },
+            { text: "Ayah membawa tas seberat 5 kg. Beni membawa tas seberat 2 kg. Siapakah yang membawa beban lebih berat?", options: ["Beni", "Ayah", "Sama Berat"], correct: 1 }
+        ];
+        let challengeIndex = 0;
+
+        function renderChallenge() {
+            const c = challengeData[challengeIndex];
+            document.getElementById('challenge-text').innerText = `"${c.text}"`;
+            const container = document.getElementById('challenge-options');
+            container.innerHTML = '';
+            c.options.forEach((opt, idx) => {
+                container.innerHTML += `<button onclick="answerChallenge(${idx})" class="p-4 bg-orange-100 hover:bg-orange-200 text-orange-900 font-bold rounded-2xl btn-bounce">${opt}</button>`;
+            });
+        }
+
+        function answerChallenge(idx) {
+            const fb = document.getElementById('challenge-feedback');
+            if (idx === challengeData[challengeIndex].correct) {
+                fb.innerHTML = "<span class='text-emerald-600'>✓ Hebat Sekali! Kamu berhasil menyelesaikan tantangan! 🏆</span>";
+                playSound('correct');
+            } else {
+                fb.innerHTML = "<span class='text-rose-600'>✗ Mari kita baca angka ukuran angkanya lagi ya! 😊</span>";
+                playSound('wrong');
+            }
+        }
+
+        // REFLEKSI
+        function setRefleksi(qNum, text) {
+            refleksiHasil = text;
+            document.querySelectorAll(`.refl-btn${qNum}`).forEach(btn => btn.classList.remove('bg-pink-300'));
+            event.target.classList.add('bg-pink-300');
+        }
+
+        function finishRefleksi() {
+            showResults();
+            showPage('page-hasil');
+        }
+
+        // HITUNG & TAMPILKAN HASIL
+        function showResults() {
+            const totalSoal = quizData.length;
+            const nilai = Math.round((scoreBenar / totalSoal) * 100);
+            
+            let predikat = "";
+            if (nilai >= 90) predikat = "Sangat Baik ⭐⭐⭐";
+            else if (nilai >= 80) predikat = "Baik ⭐⭐";
+            else if (nilai >= 70) predikat = "Cukup ⭐";
+            else predikat = "Perlu Belajar Lagi 💪";
+
+            const endTime = new Date();
+            const elapsedMinutes = Math.max(1, Math.round((endTime - startTime) / 60000));
+
+            document.getElementById('res-nama').innerText = namaPeserta || "Siswa";
+            document.getElementById('res-kelas').innerText = kelasPeserta || "2A";
+            document.getElementById('res-waktu').innerText = `${elapsedMinutes} Menit`;
+            document.getElementById('res-benar').innerText = scoreBenar;
+            document.getElementById('res-salah').innerText = scoreSalah;
+            document.getElementById('res-nilai').innerText = nilai;
+            document.getElementById('res-predikat').innerText = predikat;
+        }
+
+        // GOOGLE SHEETS INTEGRATION (fetch POST)
+        function saveResultToGoogleSheet() {
+            const statusDiv = document.getElementById('save-status');
+            statusDiv.innerHTML = "<span class='text-sky-600 animate-pulse'>⌛ Sedang mengirim hasil ke Google Sheets...</span>";
+
+            const totalSoal = quizData.length;
+            const nilai = Math.round((scoreBenar / totalSoal) * 100);
+            let predikat = nilai >= 90 ? "Sangat Baik" : nilai >= 80 ? "Baik" : nilai >= 70 ? "Cukup" : "Perlu Belajar";
+
+            const payload = {
+                tanggal: new Date().toLocaleString("id-ID"),
+                nama: namaPeserta || "Siswa",
+                kelas: kelasPeserta || "2A",
+                materi: "Besaran-Besaran Pengukuran",
+                jumlahSoal: totalSoal,
+                benar: scoreBenar,
+                salah: scoreSalah,
+                nilai: nilai,
+                predikat: predikat,
+                waktu: document.getElementById('res-waktu').innerText,
+                refleksi: refleksiHasil
+            };
+
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors", // menghindari issue CORS
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                statusDiv.innerHTML = "<span class='text-emerald-600'>✓ Hasil belajar berhasil terkirim ke Guru! 🎉</span>";
+            })
+            .catch(err => {
+                statusDiv.innerHTML = "<span class='text-rose-600'>✗ Gagal mengirim hasil. Pastikan URL Web App Apps Script sudah diisi dengan benar.</span>";
+            });
+        }
+
+        function openGoogleDocs() {
+            window.open(GOOGLE_DOCS_URL, '_blank');
+        }
+
+        function resetApp() {
+            currentQuizIndex = 0;
+            scoreBenar = 0;
+            scoreSalah = 0;
+            loadQuestion();
+            showPage('page-latihan');
+        }
+
+        // INITIALIZATION
+        window.onload = function() {
+            renderG1();
+            renderChallenge();
+            loadQuestion();
+        };
+    </script>
+</body>
+</html>
